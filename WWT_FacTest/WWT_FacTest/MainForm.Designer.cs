@@ -52,6 +52,9 @@
             this.button8 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.测试项目 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.测试结果 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btn_start = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
@@ -74,9 +77,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.测试项目 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.测试结果 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.button12 = new System.Windows.Forms.Button();
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -382,6 +383,30 @@
             this.dataGridView1.Size = new System.Drawing.Size(457, 253);
             this.dataGridView1.TabIndex = 85;
             // 
+            // ID
+            // 
+            this.ID.DataPropertyName = "ID";
+            this.ID.HeaderText = "序号";
+            this.ID.Name = "ID";
+            this.ID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.ID.Width = 40;
+            // 
+            // 测试项目
+            // 
+            this.测试项目.DataPropertyName = "测试项目";
+            this.测试项目.HeaderText = "测试项目";
+            this.测试项目.Name = "测试项目";
+            this.测试项目.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.测试项目.Width = 140;
+            // 
+            // 测试结果
+            // 
+            this.测试结果.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.测试结果.DataPropertyName = "测试结果";
+            this.测试结果.HeaderText = "测试结果";
+            this.测试结果.Name = "测试结果";
+            this.测试结果.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // btn_start
             // 
             this.btn_start.Location = new System.Drawing.Point(2, 12);
@@ -545,6 +570,7 @@
             // 
             // splitContainer4.Panel1
             // 
+            this.splitContainer4.Panel1.Controls.Add(this.button12);
             this.splitContainer4.Panel1.Controls.Add(this.btn_start);
             this.splitContainer4.Panel1.Controls.Add(this.dataGridView1);
             this.splitContainer4.Panel1.Controls.Add(this.button10);
@@ -660,29 +686,15 @@
             this.splitContainer3.SplitterDistance = 135;
             this.splitContainer3.TabIndex = 95;
             // 
-            // ID
+            // button12
             // 
-            this.ID.DataPropertyName = "ID";
-            this.ID.HeaderText = "序号";
-            this.ID.Name = "ID";
-            this.ID.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.ID.Width = 40;
-            // 
-            // 测试项目
-            // 
-            this.测试项目.DataPropertyName = "测试项目";
-            this.测试项目.HeaderText = "测试项目";
-            this.测试项目.Name = "测试项目";
-            this.测试项目.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.测试项目.Width = 140;
-            // 
-            // 测试结果
-            // 
-            this.测试结果.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.测试结果.DataPropertyName = "测试结果";
-            this.测试结果.HeaderText = "测试结果";
-            this.测试结果.Name = "测试结果";
-            this.测试结果.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.button12.Location = new System.Drawing.Point(4, 205);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(95, 33);
+            this.button12.TabIndex = 88;
+            this.button12.Text = "导出到Excel";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // MainForm
             // 
@@ -778,6 +790,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn 测试项目;
         private System.Windows.Forms.DataGridViewTextBoxColumn 测试结果;
+        private System.Windows.Forms.Button button12;
     }
 }
 
