@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Configuration;
 using System.Data;
+using System.Data.SQLite;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO.Ports;
@@ -90,12 +91,17 @@ namespace WWT_FacTest
             dataGridView2.DataSource = dtList;
             dataGridView2.AllowUserToAddRows = false;
 
-
-
             btn_SerialOpen_Click(sender, e);
 
             Data.UniqueCode = ConfigurationManager.AppSettings["UniqueCode"];
             this.textBox_UniqueCode.Text = Data.UniqueCode;
+
+
+            sql = new SqLiteHelper("data source=mydb.db");
+            //创建名为table1的数据表
+            sql.CreateTable("table1", new string[] { "锁唯一ID", "时间", "结果", "详细信息" }, new string[] { "TEXT", "TEXT", "TEXT", "TEXT" });
+
+
         }
 
         /// <summary>
@@ -636,6 +642,40 @@ namespace WWT_FacTest
             }
             xlApp.Quit();
             GC.Collect();//强行销毁           
+        }
+
+        private static SqLiteHelper sql;
+        private void button13_Click(object sender, EventArgs e)
+        {
+            //插入两条数据
+            for (int i = 1000000; i < 1000000+100; i++)
+            {
+                int snid = i;
+                string str_snid = i.ToString().PadLeft(8, '0');
+                sql.InsertValues("table1", new string[] { str_snid, "20180321", "测试成功", "测试成功" });               
+            }
+            Trace.WriteLine("100 over!");
+            //更新数据，将Name="张三"的记录中的Name改为"Zhang3"
+         //   sql.UpdateValues("table1", new string[] { "Name" }, new string[] { "ZhangSan" }, "Name", "Zhang3");
+
+            //删除Name="张三"且Age=26的记录,DeleteValuesOR方法类似
+           // sql.DeleteValuesAND("table1", new string[] { "Name", "Age" }, new string[] { "张三", "22" }, new string[] { "=", "=" });
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            SQLiteDataReader reader = sql.ReadFullTable("table1");
+            while (reader.Read())
+            {
+                //读取ID
+                Trace.WriteLine("" + reader.GetString(reader.GetOrdinal("锁唯一ID")));
+                //读取Name
+                Trace.WriteLine("" + reader.GetString(reader.GetOrdinal("时间")));
+                //读取Age
+                Trace.WriteLine("" + reader.GetString(reader.GetOrdinal("结果")));
+                //读取Email
+                Trace.WriteLine(reader.GetString(reader.GetOrdinal("详细信息")));
+            }
         }
     }
 }

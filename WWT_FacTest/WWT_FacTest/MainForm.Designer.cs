@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label40 = new System.Windows.Forms.Label();
@@ -68,6 +68,7 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_SerialConfig = new System.Windows.Forms.Button();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.button12 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -77,7 +78,8 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.button12 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -570,6 +572,8 @@
             // 
             // splitContainer4.Panel1
             // 
+            this.splitContainer4.Panel1.Controls.Add(this.button14);
+            this.splitContainer4.Panel1.Controls.Add(this.button13);
             this.splitContainer4.Panel1.Controls.Add(this.button12);
             this.splitContainer4.Panel1.Controls.Add(this.btn_start);
             this.splitContainer4.Panel1.Controls.Add(this.dataGridView1);
@@ -581,6 +585,16 @@
             this.splitContainer4.Size = new System.Drawing.Size(714, 453);
             this.splitContainer4.SplitterDistance = 257;
             this.splitContainer4.TabIndex = 88;
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(4, 221);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(95, 33);
+            this.button12.TabIndex = 88;
+            this.button12.Text = "导出到Excel";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // dataGridView2
             // 
@@ -602,9 +616,9 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "SNID";
-            dataGridViewCellStyle1.Format = "000000";
-            dataGridViewCellStyle1.NullValue = "000000";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "000000";
+            dataGridViewCellStyle2.NullValue = "000000";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn2.HeaderText = "锁唯一ID";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
@@ -686,15 +700,25 @@
             this.splitContainer3.SplitterDistance = 135;
             this.splitContainer3.TabIndex = 95;
             // 
-            // button12
+            // button13
             // 
-            this.button12.Location = new System.Drawing.Point(4, 205);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(95, 33);
-            this.button12.TabIndex = 88;
-            this.button12.Text = "导出到Excel";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
+            this.button13.Location = new System.Drawing.Point(4, 123);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(95, 31);
+            this.button13.TabIndex = 89;
+            this.button13.Text = "保存至数据库";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(4, 160);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(95, 31);
+            this.button14.TabIndex = 89;
+            this.button14.Text = "读取数据库";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
             // 
             // MainForm
             // 
@@ -791,6 +815,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn 测试项目;
         private System.Windows.Forms.DataGridViewTextBoxColumn 测试结果;
         private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.Button button13;
     }
 }
 
