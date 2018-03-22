@@ -10,6 +10,8 @@ namespace WWT_FacTest
 {
     class Data
     {
+        public static SqLiteHelper sql;
+
         public static String UniqueCode = null;
         public static String ReturnStr = null;
 

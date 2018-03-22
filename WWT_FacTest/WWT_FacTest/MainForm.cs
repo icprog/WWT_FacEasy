@@ -23,6 +23,9 @@ namespace WWT_FacTest
         public delegate void DeleUpdateGridView(int row, string result);
         public delegate void DeleUpdateGridView2(string SNID, string time, string result, string detail);
         public delegate void DeleUpdateTextBox(TextBox textbox, string str);
+
+        public QueryInfo myQueryInfo = new QueryInfo();
+    
         private void UpdateGridView(int row, string result)
         {
             dtLock.Rows[row]["测试结果"] = result;
@@ -97,9 +100,10 @@ namespace WWT_FacTest
             this.textBox_UniqueCode.Text = Data.UniqueCode;
 
 
-            sql = new SqLiteHelper("data source=mydb.db");
+            Data.sql = new SqLiteHelper("data source=mydb.db");
             //创建名为table1的数据表
-            sql.CreateTable("table1", new string[] { "锁唯一ID", "时间", "结果", "详细信息" }, new string[] { "TEXT", "TEXT", "TEXT", "TEXT" });
+            Data.sql.CreateTable("table_All", new string[] { "锁唯一ID", "时间", "结果", "详细信息" }, new string[] { "TEXT", "TEXT", "TEXT", "TEXT" });
+            Data.sql.CreateTable("table_Error", new string[] { "锁唯一ID", "时间", "结果", "详细信息" }, new string[] { "TEXT", "TEXT", "TEXT", "TEXT" });
 
 
         }
@@ -204,8 +208,6 @@ namespace WWT_FacTest
             }
         }
 
-
-
         private void ComPortSend_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
             //            throw new NotImplementedException();
@@ -250,7 +252,6 @@ namespace WWT_FacTest
             }
 
         }
-
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -523,7 +524,7 @@ namespace WWT_FacTest
                     int temp = 0;
                     int.TryParse(Data.UniqueCode, out temp);
                     temp = temp + 1;
-                    Data.UniqueCode = Convert.ToString(temp, 10).PadLeft(6, '0');
+                    Data.UniqueCode = Convert.ToString(temp, 10).PadLeft(8, '0');
 
                     this.textBox_UniqueCode.Invoke(myDeleUpdateTextBox, this.textBox_UniqueCode, Data.UniqueCode);
 
@@ -536,6 +537,8 @@ namespace WWT_FacTest
                         detail += row[2] + ",";
                     }
                     dataGridView2.Invoke(myDeleUpdate2, Data.UniqueCode, time, "测试成功", detail);
+
+                    Data.sql.InsertValues("table_All", new string[] { Data.UniqueCode, time, "测试成功", detail });
                 }
                 else
                 {
@@ -548,7 +551,10 @@ namespace WWT_FacTest
                         detail += row[2] + ",";
                     }
                     dataGridView2.Invoke(myDeleUpdate2, Data.UniqueCode, time, "测试失败", detail);
+                    Data.sql.InsertValues("table_All", new string[] { Data.UniqueCode, time, "测试失败", detail });
+                    Data.sql.InsertValues("table_Error", new string[] { Data.UniqueCode, time, "测试失败", detail });
                 }
+
             }
             else
             {
@@ -644,7 +650,6 @@ namespace WWT_FacTest
             GC.Collect();//强行销毁           
         }
 
-        private static SqLiteHelper sql;
         private void button13_Click(object sender, EventArgs e)
         {
             //插入两条数据
@@ -652,7 +657,7 @@ namespace WWT_FacTest
             {
                 int snid = i;
                 string str_snid = i.ToString().PadLeft(8, '0');
-                sql.InsertValues("table1", new string[] { str_snid, "20180321", "测试成功", "测试成功" });               
+                Data.sql.InsertValues("table_All", new string[] { str_snid, "20180321", "测试成功", "测试成功" });               
             }
             Trace.WriteLine("100 over!");
             //更新数据，将Name="张三"的记录中的Name改为"Zhang3"
@@ -664,7 +669,7 @@ namespace WWT_FacTest
 
         private void button14_Click(object sender, EventArgs e)
         {
-            SQLiteDataReader reader = sql.ReadFullTable("table1");
+            SQLiteDataReader reader = Data.sql.ReadFullTable("table_All");
             while (reader.Read())
             {
                 //读取ID
@@ -676,6 +681,19 @@ namespace WWT_FacTest
                 //读取Email
                 Trace.WriteLine(reader.GetString(reader.GetOrdinal("详细信息")));
             }
+        }
+
+        private void 查询ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(myQueryInfo!=null)
+            {
+                myQueryInfo.Activate();
+            }
+            else
+            {
+                myQueryInfo = new QueryInfo();
+            }
+            myQueryInfo.Show();
         }
     }
 }

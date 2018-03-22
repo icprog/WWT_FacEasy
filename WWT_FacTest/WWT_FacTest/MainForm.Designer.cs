@@ -68,6 +68,8 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_SerialConfig = new System.Windows.Forms.Button();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.button14 = new System.Windows.Forms.Button();
+            this.button13 = new System.Windows.Forms.Button();
             this.button12 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -78,8 +80,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
+            this.查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -467,7 +468,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.配置ToolStripMenuItem,
-            this.手动控制ToolStripMenuItem});
+            this.手动控制ToolStripMenuItem,
+            this.查询ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(931, 25);
@@ -586,6 +588,26 @@
             this.splitContainer4.SplitterDistance = 257;
             this.splitContainer4.TabIndex = 88;
             // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(4, 160);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(95, 31);
+            this.button14.TabIndex = 89;
+            this.button14.Text = "读取数据库";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.button14_Click);
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(4, 123);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(95, 31);
+            this.button13.TabIndex = 89;
+            this.button13.Text = "保存至数据库";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
+            // 
             // button12
             // 
             this.button12.Location = new System.Drawing.Point(4, 221);
@@ -700,25 +722,12 @@
             this.splitContainer3.SplitterDistance = 135;
             this.splitContainer3.TabIndex = 95;
             // 
-            // button13
+            // 查询ToolStripMenuItem
             // 
-            this.button13.Location = new System.Drawing.Point(4, 123);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(95, 31);
-            this.button13.TabIndex = 89;
-            this.button13.Text = "保存至数据库";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
-            // button14
-            // 
-            this.button14.Location = new System.Drawing.Point(4, 160);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(95, 31);
-            this.button14.TabIndex = 89;
-            this.button14.Text = "读取数据库";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
+            this.查询ToolStripMenuItem.Name = "查询ToolStripMenuItem";
+            this.查询ToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
+            this.查询ToolStripMenuItem.Text = "查询与导出";
+            this.查询ToolStripMenuItem.Click += new System.EventHandler(this.查询ToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -817,6 +826,7 @@
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.ToolStripMenuItem 查询ToolStripMenuItem;
     }
 }
 
