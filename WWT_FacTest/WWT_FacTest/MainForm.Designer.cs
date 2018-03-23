@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label40 = new System.Windows.Forms.Label();
@@ -64,13 +64,11 @@
             this.配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.串口配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.手动控制ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_SerialConfig = new System.Windows.Forms.Button();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
-            this.button14 = new System.Windows.Forms.Button();
-            this.button13 = new System.Windows.Forms.Button();
-            this.button12 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,7 +78,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.button12 = new System.Windows.Forms.Button();
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -351,7 +349,7 @@
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(85, 29);
             this.button8.TabIndex = 84;
-            this.button8.Text = "退出超声";
+            this.button8.Text = "退出测试模式";
             this.button8.UseVisualStyleBackColor = true;
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
@@ -412,22 +410,25 @@
             // 
             // btn_start
             // 
-            this.btn_start.Location = new System.Drawing.Point(2, 12);
+            this.btn_start.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.btn_start.Font = new System.Drawing.Font("宋体", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.btn_start.Location = new System.Drawing.Point(22, 27);
             this.btn_start.Margin = new System.Windows.Forms.Padding(2);
             this.btn_start.Name = "btn_start";
-            this.btn_start.Size = new System.Drawing.Size(97, 35);
+            this.btn_start.Size = new System.Drawing.Size(206, 76);
             this.btn_start.TabIndex = 86;
             this.btn_start.Text = "开始测试";
-            this.btn_start.UseVisualStyleBackColor = true;
+            this.btn_start.UseVisualStyleBackColor = false;
             this.btn_start.Click += new System.EventHandler(this.btn_start_Click);
             // 
             // button10
             // 
-            this.button10.Location = new System.Drawing.Point(4, 56);
+            this.button10.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.button10.Location = new System.Drawing.Point(626, 36);
             this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(95, 31);
+            this.button10.Size = new System.Drawing.Size(85, 28);
             this.button10.TabIndex = 87;
-            this.button10.Text = "打印条形码";
+            this.button10.Text = "测试打印";
             this.button10.UseVisualStyleBackColor = true;
             this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
@@ -497,6 +498,13 @@
             this.手动控制ToolStripMenuItem.Text = "手动控制";
             this.手动控制ToolStripMenuItem.Click += new System.EventHandler(this.手动控制ToolStripMenuItem_Click);
             // 
+            // 查询ToolStripMenuItem
+            // 
+            this.查询ToolStripMenuItem.Name = "查询ToolStripMenuItem";
+            this.查询ToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
+            this.查询ToolStripMenuItem.Text = "查询与导出";
+            this.查询ToolStripMenuItem.Click += new System.EventHandler(this.查询ToolStripMenuItem_Click);
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -534,6 +542,7 @@
             this.tableLayoutPanel1.Controls.Add(this.textBox_UniqueCode, 6, 1);
             this.tableLayoutPanel1.Controls.Add(this.button3, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 6, 0);
+            this.tableLayoutPanel1.Controls.Add(this.button10, 7, 1);
             this.tableLayoutPanel1.Controls.Add(this.button4, 2, 1);
             this.tableLayoutPanel1.Controls.Add(this.button7, 3, 0);
             this.tableLayoutPanel1.Controls.Add(this.button5, 5, 0);
@@ -574,12 +583,9 @@
             // 
             // splitContainer4.Panel1
             // 
-            this.splitContainer4.Panel1.Controls.Add(this.button14);
-            this.splitContainer4.Panel1.Controls.Add(this.button13);
             this.splitContainer4.Panel1.Controls.Add(this.button12);
             this.splitContainer4.Panel1.Controls.Add(this.btn_start);
             this.splitContainer4.Panel1.Controls.Add(this.dataGridView1);
-            this.splitContainer4.Panel1.Controls.Add(this.button10);
             // 
             // splitContainer4.Panel2
             // 
@@ -587,36 +593,6 @@
             this.splitContainer4.Size = new System.Drawing.Size(714, 453);
             this.splitContainer4.SplitterDistance = 257;
             this.splitContainer4.TabIndex = 88;
-            // 
-            // button14
-            // 
-            this.button14.Location = new System.Drawing.Point(4, 160);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(95, 31);
-            this.button14.TabIndex = 89;
-            this.button14.Text = "读取数据库";
-            this.button14.UseVisualStyleBackColor = true;
-            this.button14.Click += new System.EventHandler(this.button14_Click);
-            // 
-            // button13
-            // 
-            this.button13.Location = new System.Drawing.Point(4, 123);
-            this.button13.Name = "button13";
-            this.button13.Size = new System.Drawing.Size(95, 31);
-            this.button13.TabIndex = 89;
-            this.button13.Text = "保存至数据库";
-            this.button13.UseVisualStyleBackColor = true;
-            this.button13.Click += new System.EventHandler(this.button13_Click);
-            // 
-            // button12
-            // 
-            this.button12.Location = new System.Drawing.Point(4, 221);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(95, 33);
-            this.button12.TabIndex = 88;
-            this.button12.Text = "导出到Excel";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // dataGridView2
             // 
@@ -638,9 +614,9 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "SNID";
-            dataGridViewCellStyle2.Format = "000000";
-            dataGridViewCellStyle2.NullValue = "000000";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle15.Format = "000000";
+            dataGridViewCellStyle15.NullValue = "000000";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle15;
             this.dataGridViewTextBoxColumn2.HeaderText = "锁唯一ID";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
@@ -722,12 +698,17 @@
             this.splitContainer3.SplitterDistance = 135;
             this.splitContainer3.TabIndex = 95;
             // 
-            // 查询ToolStripMenuItem
+            // button12
             // 
-            this.查询ToolStripMenuItem.Name = "查询ToolStripMenuItem";
-            this.查询ToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
-            this.查询ToolStripMenuItem.Text = "查询与导出";
-            this.查询ToolStripMenuItem.Click += new System.EventHandler(this.查询ToolStripMenuItem_Click);
+            this.button12.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.button12.Font = new System.Drawing.Font("宋体", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.button12.Location = new System.Drawing.Point(22, 128);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(206, 80);
+            this.button12.TabIndex = 87;
+            this.button12.Text = "查询和导出";
+            this.button12.UseVisualStyleBackColor = false;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // MainForm
             // 
@@ -823,10 +804,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn ID;
         private System.Windows.Forms.DataGridViewTextBoxColumn 测试项目;
         private System.Windows.Forms.DataGridViewTextBoxColumn 测试结果;
-        private System.Windows.Forms.Button button12;
-        private System.Windows.Forms.Button button14;
-        private System.Windows.Forms.Button button13;
         private System.Windows.Forms.ToolStripMenuItem 查询ToolStripMenuItem;
+        private System.Windows.Forms.Button button12;
     }
 }
 

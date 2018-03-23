@@ -102,8 +102,9 @@ namespace WWT_FacTest
 
             Data.sql = new SqLiteHelper("data source=mydb.db");
             //创建名为table1的数据表
-            Data.sql.CreateTable("table_All", new string[] { "锁唯一ID", "时间", "结果", "详细信息" }, new string[] { "TEXT", "TEXT", "TEXT", "TEXT" });
-            Data.sql.CreateTable("table_Error", new string[] { "锁唯一ID", "时间", "结果", "详细信息" }, new string[] { "TEXT", "TEXT", "TEXT", "TEXT" });
+            Data.sql.CreateTable("table_All", new string[] { "SNID", "CreateTime", "Result", "DetailInfo" }, new string[] { "TEXT", "TEXT", "TEXT", "TEXT" });
+            Data.sql.CreateTable("table_Error", new string[] { "SNID", "CreateTime", "Result", "DetailInfo" }, new string[] { "TEXT", "TEXT", "TEXT", "TEXT" });
+            Data.sql.CreateTable("table_Right", new string[] { "SNID", "CreateTime", "Result", "DetailInfo" }, new string[] { "TEXT", "TEXT", "TEXT", "TEXT" });
 
 
         }
@@ -316,6 +317,15 @@ namespace WWT_FacTest
 
         private void btn_start_Click(object sender, EventArgs e)
         {
+            string time = string.Format("{0}-{1:D2}-{2:D2} {3:D2}：{4:D2}：{5:D2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+            string detail = "";
+            foreach (DataRow row in dtLock.Rows)
+            {
+                detail += row[2] + ",";
+            }
+            Data.sql.InsertValues("table_All", new string[] { Data.UniqueCode, time, "测试通过", detail });
+
+
             Data.UniqueCode = this.textBox_UniqueCode.Text;
             foreach (DataRow dr in dtLock.Rows)
             {
@@ -424,14 +434,15 @@ namespace WWT_FacTest
                     {
                         SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
                         Thread.Sleep(200);
-                        if (Data.ReturnStr.Length > 20)
+                        if (Data.ReturnStr.Length > 26)
                         {
                             if (Data.ReturnStr.Substring(18, 2) != "00")
                             {
                                 Normal_Ultrasonic_Tag = false;
+                                MyLog.Error("无车超声测试时收到异常返回:" + Data.ReturnStr);
                                 break;
                             }
-                        }  
+                        }
                     }
 
                     if (Normal_Ultrasonic_Tag)
@@ -442,8 +453,8 @@ namespace WWT_FacTest
                     {
                         dataGridView1.Invoke(myDeleUpdate, 3, "无车情况：超声异常");
                         result = false;
-                    }                
-                    
+                    }
+
                     SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出超声测试
                     Thread.Sleep(500);
                     SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出超声测试
@@ -451,7 +462,7 @@ namespace WWT_FacTest
 
 
                     ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "010601050400");//进入地磁测试
-                    Thread.Sleep(500);
+                    Thread.Sleep(2000);
                     if (Data.ReturnStr == ret1)
                     {
                         dataGridView1.Invoke(myDeleUpdate, 4, "地磁测试中...");
@@ -462,13 +473,14 @@ namespace WWT_FacTest
                     {
                         SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
                         Thread.Sleep(200);
-                        if (Data.ReturnStr.Length > 20)
+                        if (Data.ReturnStr.Length > 26)
                         {
                             if (Data.ReturnStr.Substring(18, 2) != "00")
                             {
                                 Normal_UltraMagnetic_Tag = false;
+                                MyLog.Error("无车地磁测试时收到异常返回:" + Data.ReturnStr);
                                 break;
-                            }     
+                            }
                         }
                     }
 
@@ -551,201 +563,130 @@ namespace WWT_FacTest
                     {
                         dataGridView1.Invoke(myDeleUpdate, 6, "有车情况：地磁异常");
                         result = false;
-                    } 
-                
-
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出地磁测试
-                Thread.Sleep(500);
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出地磁测试
-                Thread.Sleep(500);
-
-                #endregion
-
-                if (result)
-                {
-                    string timestr = string.Format("{0}-{1:D2}-{2:D2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-                    PrintMachine.PrintUniqueCode(timestr, Data.UniqueCode);
-
-                    string time = string.Format("{0}-{1:D2}-{2:D2} {3:D2}：{4:D2}：{5:D2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-                    string detail = "";
-                    foreach (DataRow row in dtLock.Rows)
-                    {
-                        detail += row[2] + ",";
                     }
-                    dataGridView2.Invoke(myDeleUpdate2, Data.UniqueCode, time, "测试成功", detail);
 
-                    Data.sql.InsertValues("table_All", new string[] { Data.UniqueCode, time, "测试成功", detail });
 
-                    int temp = 0;
-                    int.TryParse(Data.UniqueCode, out temp);
-                    temp = temp + 1;
-                    Data.UniqueCode = Convert.ToString(temp, 10).PadLeft(8, '0');
+                    SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出地磁测试
+                    Thread.Sleep(500);
+                    SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出地磁测试
+                    Thread.Sleep(500);
 
-                    this.textBox_UniqueCode.Invoke(myDeleUpdateTextBox, this.textBox_UniqueCode, Data.UniqueCode);
+                    #endregion
 
-                    SetConfigValue("UniqueCode", Data.UniqueCode);
-
-                }
-                else
-                {
-                    MyLog.Error("当前测试失败，请重新测试！");
-
-                    string time = string.Format("{0}-{1:D2}-{2:D2} {3:D2}：{4:D2}：{5:D2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
-                    string detail = "";
-                    foreach (DataRow row in dtLock.Rows)
+                    if (result)
                     {
-                        detail += row[2] + ",";
+                        string timestr = string.Format("{0}-{1:D2}-{2:D2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
+                        PrintMachine.PrintUniqueCode(timestr, Data.UniqueCode);
+
+                        string time = string.Format("{0}-{1:D2}-{2:D2} {3:D2}:{4:D2}:{5:D2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                        string detail = "";
+                        foreach (DataRow row in dtLock.Rows)
+                        {
+                            detail += row[2] + ",";
+                        }
+                        dataGridView2.Invoke(myDeleUpdate2, Data.UniqueCode, time, "测试通过", detail);
+
+                        Data.sql.InsertValues("table_All", new string[] { Data.UniqueCode, time, "测试通过", detail });
+                        Data.sql.InsertValues("table_Right", new string[] { Data.UniqueCode, time, "测试通过", detail });
+
+                        int temp = 0;
+                        int.TryParse(Data.UniqueCode, out temp);
+                        temp = temp + 1;
+                        Data.UniqueCode = Convert.ToString(temp, 10).PadLeft(8, '0');
+
+                        this.textBox_UniqueCode.Invoke(myDeleUpdateTextBox, this.textBox_UniqueCode, Data.UniqueCode);
+
+                        SetConfigValue("UniqueCode", Data.UniqueCode);
+
                     }
-                    dataGridView2.Invoke(myDeleUpdate2, Data.UniqueCode, time, "测试失败", detail);
-                    Data.sql.InsertValues("table_All", new string[] { Data.UniqueCode, time, "测试失败", detail });
-                    Data.sql.InsertValues("table_Error", new string[] { Data.UniqueCode, time, "测试失败", detail });
+                    else
+                    {
+                        MyLog.Error("当前测试失败，请重新测试！");
+
+                        string time = string.Format("{0}-{1:D2}-{2:D2} {3:D2}:{4:D2}:{5:D2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
+                        string detail = "";
+                        foreach (DataRow row in dtLock.Rows)
+                        {
+                            detail += row[2] + ",";
+                        }
+                        dataGridView2.Invoke(myDeleUpdate2, Data.UniqueCode, time, "测试失败", detail);
+                        Data.sql.InsertValues("table_All", new string[] { Data.UniqueCode, time, "测试失败", detail });
+                        Data.sql.InsertValues("table_Error", new string[] { Data.UniqueCode, time, "测试失败", detail });
+                    }
                 }
-            }
                 catch (Exception ex)
-            {
-                MessageBox.Show("串口错误，请重新配置串口！！");
-                MyLog.Error(ex.Message);
-            }
+                {
+                    MessageBox.Show("串口错误，请重新配置串口！！");
+                    MyLog.Error(ex.Message);
+                }
 
-        }
+            }
             else
             {
                 MyLog.Error("串口未打开，测试失败，请重新测试！");
             }
-    Trace.WriteLine("退出Fun_Compare");
+            Trace.WriteLine("退出Fun_Compare");
         }
 
 
-private void button10_Click(object sender, EventArgs e)
-{
-    PrintMachine.PrintUniqueCode("2000年1月1日", "99999999");
-}
-
-private void 串口配置ToolStripMenuItem_Click(object sender, EventArgs e)
-{
-
-}
-
-private void 手动控制ToolStripMenuItem_Click(object sender, EventArgs e)
-{
-    if (this.splitContainer1.Panel1Collapsed)
-    {
-        this.splitContainer1.Panel1Collapsed = false;
-    }
-    else
-    {
-        this.splitContainer1.Panel1Collapsed = true;
-    }
-}
-
-private void btn_SerialConfig_Click(object sender, EventArgs e)
-{
-    if (this.splitContainer3.Panel1Collapsed)
-    {
-        this.splitContainer3.Panel1Collapsed = false;
-    }
-    else
-    {
-        this.splitContainer3.Panel1Collapsed = true;
-    }
-}
-
-private void button12_Click(object sender, EventArgs e)
-{
-    string fileName = "";
-    string saveFileName = "";
-    SaveFileDialog saveDialog = new SaveFileDialog();
-    saveDialog.DefaultExt = "xlsx";
-    saveDialog.Filter = "Excel文件|*.xlsx";
-    saveDialog.FileName = fileName;
-    saveDialog.ShowDialog();
-    saveFileName = saveDialog.FileName;
-    if (saveFileName.IndexOf(":") < 0) return; //被点了取消
-    Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
-    if (xlApp == null)
-    {
-        MessageBox.Show("无法创建Excel对象，您的电脑可能未安装Excel");
-        return;
-    }
-    Microsoft.Office.Interop.Excel.Workbooks workbooks = xlApp.Workbooks;
-    Microsoft.Office.Interop.Excel.Workbook workbook =
-                workbooks.Add(Microsoft.Office.Interop.Excel.XlWBATemplate.xlWBATWorksheet);
-    Microsoft.Office.Interop.Excel.Worksheet worksheet =
-                (Microsoft.Office.Interop.Excel.Worksheet)workbook.Worksheets[1];//取得sheet1 
-                                                                                 //写入标题             
-    for (int i = 0; i < dataGridView2.ColumnCount; i++)
-    { worksheet.Cells[1, i + 1] = dataGridView2.Columns[i].HeaderText; }
-    //写入数值
-    for (int r = 0; r < dataGridView2.Rows.Count; r++)
-    {
-        for (int i = 0; i < dataGridView2.ColumnCount; i++)
+        private void button10_Click(object sender, EventArgs e)
         {
-            worksheet.Cells[r + 2, i + 1] = dataGridView2.Rows[r].Cells[i].Value;
+            PrintMachine.PrintUniqueCode("2000年1月1日", "99999999");
         }
-        System.Windows.Forms.Application.DoEvents();
-    }
-    worksheet.Columns.EntireColumn.AutoFit();//列宽自适应
-    MessageBox.Show(fileName + "资料保存成功", "提示", MessageBoxButtons.OK);
-    if (saveFileName != "")
-    {
-        try
+
+        private void 串口配置ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            workbook.Saved = true;
-            workbook.SaveCopyAs(saveFileName);  //fileSaved = true;                 
+
         }
-        catch (Exception ex)
-        {//fileSaved = false;                      
-            MessageBox.Show("导出文件时出错,文件可能正被打开！\n" + ex.Message);
+
+        private void 手动控制ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.splitContainer1.Panel1Collapsed)
+            {
+                this.splitContainer1.Panel1Collapsed = false;
+            }
+            else
+            {
+                this.splitContainer1.Panel1Collapsed = true;
+            }
         }
-    }
-    xlApp.Quit();
-    GC.Collect();//强行销毁           
-}
 
-private void button13_Click(object sender, EventArgs e)
-{
-    //插入两条数据
-    for (int i = 1000000; i < 1000000 + 100; i++)
-    {
-        int snid = i;
-        string str_snid = i.ToString().PadLeft(8, '0');
-        Data.sql.InsertValues("table_All", new string[] { str_snid, "20180321", "测试成功", "测试成功" });
-    }
-    Trace.WriteLine("100 over!");
-    //更新数据，将Name="张三"的记录中的Name改为"Zhang3"
-    //   sql.UpdateValues("table1", new string[] { "Name" }, new string[] { "ZhangSan" }, "Name", "Zhang3");
+        private void btn_SerialConfig_Click(object sender, EventArgs e)
+        {
+            if (this.splitContainer3.Panel1Collapsed)
+            {
+                this.splitContainer3.Panel1Collapsed = false;
+            }
+            else
+            {
+                this.splitContainer3.Panel1Collapsed = true;
+            }
+        }
 
-    //删除Name="张三"且Age=26的记录,DeleteValuesOR方法类似
-    // sql.DeleteValuesAND("table1", new string[] { "Name", "Age" }, new string[] { "张三", "22" }, new string[] { "=", "=" });
-}
+        private void 查询ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (myQueryInfo != null)
+            {
+                myQueryInfo.Activate();
+            }
+            else
+            {
+                myQueryInfo = new QueryInfo();
+            }
+            myQueryInfo.ShowDialog();
+        }
 
-private void button14_Click(object sender, EventArgs e)
-{
-    SQLiteDataReader reader = Data.sql.ReadFullTable("table_All");
-    while (reader.Read())
-    {
-        //读取ID
-        Trace.WriteLine("" + reader.GetString(reader.GetOrdinal("锁唯一ID")));
-        //读取Name
-        Trace.WriteLine("" + reader.GetString(reader.GetOrdinal("时间")));
-        //读取Age
-        Trace.WriteLine("" + reader.GetString(reader.GetOrdinal("结果")));
-        //读取Email
-        Trace.WriteLine(reader.GetString(reader.GetOrdinal("详细信息")));
-    }
-}
-
-private void 查询ToolStripMenuItem_Click(object sender, EventArgs e)
-{
-    if (myQueryInfo != null)
-    {
-        myQueryInfo.Activate();
-    }
-    else
-    {
-        myQueryInfo = new QueryInfo();
-    }
-    myQueryInfo.Show();
-}
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if (myQueryInfo != null)
+            {
+                myQueryInfo.Activate();
+            }
+            else
+            {
+                myQueryInfo = new QueryInfo();
+            }
+            myQueryInfo.ShowDialog();
+        }
     }
 }
