@@ -25,13 +25,13 @@ namespace WWT_FacTest
         public delegate void DeleUpdateTextBox(TextBox textbox, string str);
 
         public QueryInfo myQueryInfo = new QueryInfo();
-    
+
         private void UpdateGridView(int row, string result)
         {
             dtLock.Rows[row]["测试结果"] = result;
         }
 
-        private void UpdateGridView2(string SNID,string time,string result, string detail)
+        private void UpdateGridView2(string SNID, string time, string result, string detail)
         {
             DataRow dr = dtList.NewRow();
             dr["SNID"] = (string)SNID;
@@ -78,8 +78,8 @@ namespace WWT_FacTest
             dtLock.Rows[1]["测试项目"] = "降锁测试";
             dtLock.Rows[2]["测试项目"] = "蜂鸣器测试";
             dtLock.Rows[3]["测试项目"] = "超声测试1：无车情况";
-            dtLock.Rows[4]["测试项目"] = "超声测试2：有车情况";
-            dtLock.Rows[5]["测试项目"] = "地磁测试1：无车情况";
+            dtLock.Rows[4]["测试项目"] = "地磁测试1：无车情况";
+            dtLock.Rows[5]["测试项目"] = "超声测试2：有车情况";
             dtLock.Rows[6]["测试项目"] = "地磁测试2：有车情况";
 
             dataGridView1.DataSource = dtLock;
@@ -188,8 +188,8 @@ namespace WWT_FacTest
                 }
                 catch (Exception ex)
                 {
-                    MyLog.Error("打开串口失败："+ex.Message);                    
-                }              
+                    MyLog.Error("打开串口失败：" + ex.Message);
+                }
             }
             else
             {
@@ -203,8 +203,8 @@ namespace WWT_FacTest
                 }
                 catch (Exception ex)
                 {
-                    MyLog.Error("关闭串口失败：" + ex.Message);                    
-                }               
+                    MyLog.Error("关闭串口失败：" + ex.Message);
+                }
             }
         }
 
@@ -317,7 +317,7 @@ namespace WWT_FacTest
         private void btn_start_Click(object sender, EventArgs e)
         {
             Data.UniqueCode = this.textBox_UniqueCode.Text;
-            foreach(DataRow dr in dtLock.Rows)
+            foreach (DataRow dr in dtLock.Rows)
             {
                 dr[2] = "尚未开始";
             }
@@ -335,200 +335,236 @@ namespace WWT_FacTest
 
             if (SerialFun.ComPortSend.IsOpen)
             {
+                try
+                {
+                    #region 升锁测试
+                    ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "01051002FF00");//升锁
+                    Thread.Sleep(500);
+                    if (Data.ReturnStr == ret1)
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 0, "升锁中...");
+                    }
+                    Thread.Sleep(5000);
 
-                #region 升锁测试
-                ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "01051002FF00");//升锁
-                Thread.Sleep(500);
-                if (Data.ReturnStr == ret1)
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 0, "升锁中...");
-                }
-                Thread.Sleep(5000);
+                    SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
+                    Thread.Sleep(500);
 
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
-                Thread.Sleep(500);
-
-                if (Data.ReturnStr.Substring(12, 2) == "55")
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 0, "升锁成功");
-                }
-                else
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 0, "升锁失败");
-                    result = false;
-                }
-                #endregion
-
-                #region 降锁测试
-                ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "01051003FF00");//降锁
-                Thread.Sleep(500);
-                if (Data.ReturnStr == ret1)
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 1, "降锁中...");
-                }
-                Thread.Sleep(5000);
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
-                Thread.Sleep(500);
-                if (Data.ReturnStr.Substring(12, 2) == "ff")
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 1, "降锁成功");
-                }
-                else
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 1, "降锁失败");
-                    result = false;
-                }
-                #endregion
-
-                #region 蜂鸣器测试
-                ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "01051004FF00");//报警
-                Thread.Sleep(500);
-                if (Data.ReturnStr == ret1)
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 2, "报警中...");
-                }
-                Thread.Sleep(2000);
-
-                ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "01051005FF00");//取消报警
-                Thread.Sleep(500);
-                if (Data.ReturnStr == ret1)
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 2, "取消报警...");
-                }
-                Thread.Sleep(500);
-
-                UserConfirm frm = new UserConfirm();
-                frm.ShowDialog();
-                if (Data.AlarmStatus)
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 2, "蜂鸣器正常");
-                }
-                else
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 2, "蜂鸣器异常");
-                    result = false;
-                }
-                #endregion
-
-                #region 超声测试
-                ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "010601050300");//进入超声测试
-                Thread.Sleep(500);
-                if (Data.ReturnStr == ret1)
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 3, "超声测试中...");
-                }
-                Thread.Sleep(1000);
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
-                Thread.Sleep(500);
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
-                Thread.Sleep(500);
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
-
-                if (Data.ReturnStr.Substring(18, 2) == "00")
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 3, "无车情况：超声正常");
-                }
-                else
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 3, "无车情况：超声异常");
-                    result = false;
-                }
-
-                dataGridView1.Invoke(myDeleUpdate, 4, "超声测试中...");
-
-                User_Ultrasonic_Confirm frm2 = new User_Ultrasonic_Confirm();
-                frm2.ShowDialog();
-
-                switch (Data.UltrasonicStatus)
-                {
-                    case 0:
-                        dataGridView1.Invoke(myDeleUpdate, 4, "有车情况：超声正常");
-                        break;
-                    case 1:
-                        dataGridView1.Invoke(myDeleUpdate, 4, "有车情况：超声探头1异常");
+                    if (Data.ReturnStr.Substring(12, 2) == "55")
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 0, "升锁成功");
+                    }
+                    else
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 0, "升锁失败");
                         result = false;
-                        break;
-                    case 2:
-                        dataGridView1.Invoke(myDeleUpdate, 4, "有车情况：超声探头2异常");
+                    }
+                    #endregion
+
+                    #region 降锁测试
+                    ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "01051003FF00");//降锁
+                    Thread.Sleep(500);
+                    if (Data.ReturnStr == ret1)
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 1, "降锁中...");
+                    }
+                    Thread.Sleep(5000);
+                    SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
+                    Thread.Sleep(500);
+                    if (Data.ReturnStr.Substring(12, 2) == "ff")
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 1, "降锁成功");
+                    }
+                    else
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 1, "降锁失败");
                         result = false;
-                        break;
-                    case 3:
-                        dataGridView1.Invoke(myDeleUpdate, 4, "有车情况：超声探头1,2异常");
+                    }
+                    #endregion
+
+                    #region 蜂鸣器测试
+                    ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "01051004FF00");//报警
+                    Thread.Sleep(500);
+                    if (Data.ReturnStr == ret1)
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 2, "报警中...");
+                    }
+                    Thread.Sleep(2000);
+
+                    ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "01051005FF00");//取消报警
+                    Thread.Sleep(500);
+                    if (Data.ReturnStr == ret1)
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 2, "取消报警...");
+                    }
+                    Thread.Sleep(500);
+
+                    UserConfirm frm = new UserConfirm();
+                    frm.ShowDialog();
+                    if (Data.AlarmStatus)
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 2, "蜂鸣器正常");
+                    }
+                    else
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 2, "蜂鸣器异常");
                         result = false;
-                        break;
-                    default:
-                        dataGridView1.Invoke(myDeleUpdate, 4, "有车情况：超声探头1,2异常");
+                    }
+                    #endregion
+
+                    #region 无车情况下 超声测试以及地磁测试
+                    ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "010601050300");//进入超声测试
+                    Thread.Sleep(500);
+                    if (Data.ReturnStr == ret1)
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 3, "超声测试中...");
+                    }
+
+                    bool Normal_Ultrasonic_Tag = true;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
+                        Thread.Sleep(200);
+                        if (Data.ReturnStr.Length > 20)
+                        {
+                            if (Data.ReturnStr.Substring(18, 2) != "00")
+                            {
+                                Normal_Ultrasonic_Tag = false;
+                                break;
+                            }
+                        }  
+                    }
+
+                    if (Normal_Ultrasonic_Tag)
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 3, "无车情况：超声正常");
+                    }
+                    else
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 3, "无车情况：超声异常");
                         result = false;
-                        break;
-                }
+                    }                
+                    
+                    SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出超声测试
+                    Thread.Sleep(500);
+                    SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出超声测试
+                    Thread.Sleep(500);
 
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出超声测试
-                Thread.Sleep(200);
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出超声测试
-                Thread.Sleep(200);
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出超声测试
-                Thread.Sleep(2000);
-                #endregion
 
-                #region 地磁测试
-                Trace.WriteLine("进入地磁测试");
-                ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "010601050400");//进入地磁测试
+                    ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "010601050400");//进入地磁测试
+                    Thread.Sleep(500);
+                    if (Data.ReturnStr == ret1)
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 4, "地磁测试中...");
+                    }
+
+                    bool Normal_UltraMagnetic_Tag = true;
+                    for (int i = 0; i < 10; i++)
+                    {
+                        SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
+                        Thread.Sleep(200);
+                        if (Data.ReturnStr.Length > 20)
+                        {
+                            if (Data.ReturnStr.Substring(18, 2) != "00")
+                            {
+                                Normal_UltraMagnetic_Tag = false;
+                                break;
+                            }     
+                        }
+                    }
+
+                    if (Normal_UltraMagnetic_Tag)
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 4, "无车情况：地磁正常");
+                    }
+                    else
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 4, "无车情况：地磁异常");
+                        result = false;
+                    }
+
+                    SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出地磁测试
+                    Thread.Sleep(500);
+                    SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出地磁测试
+                    Thread.Sleep(500);
+
+                    #endregion
+
+                    #region 有车情况下，超声测试、地磁测试
+
+                    ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "010601050300");//进入有车超声测试
+                    Thread.Sleep(500);
+                    if (Data.ReturnStr == ret1)
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 5, "超声测试中...");
+                    }
+
+                    User_Ultrasonic_Confirm frm2 = new User_Ultrasonic_Confirm();
+                    frm2.ShowDialog();
+
+                    switch (Data.UltrasonicStatus)
+                    {
+                        case 0:
+                            dataGridView1.Invoke(myDeleUpdate, 5, "有车情况：超声正常");
+                            break;
+                        case 1:
+                            dataGridView1.Invoke(myDeleUpdate, 5, "有车情况：超声探头1异常");
+                            result = false;
+                            break;
+                        case 2:
+                            dataGridView1.Invoke(myDeleUpdate, 5, "有车情况：超声探头2异常");
+                            result = false;
+                            break;
+                        case 3:
+                            dataGridView1.Invoke(myDeleUpdate, 5, "有车情况：超声探头1,2异常");
+                            result = false;
+                            break;
+                        case 4:
+                            dataGridView1.Invoke(myDeleUpdate, 5, "485通讯异常");
+                            result = false;
+                            break;
+                        default:
+                            dataGridView1.Invoke(myDeleUpdate, 5, "有车情况：超声探头1,2异常");
+                            result = false;
+                            break;
+                    }
+
+                    SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出超声测试
+                    Thread.Sleep(500);
+                    SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出超声测试
+                    Thread.Sleep(500);
+
+
+                    ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "010601050400");//进入有车地磁测试
+                    Thread.Sleep(500);
+                    if (Data.ReturnStr == ret1)
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 6, "地磁测试中...");
+                    }
+                    User_Magnetic_Confirm frm3 = new User_Magnetic_Confirm();
+                    frm3.ShowDialog();
+
+                    if (Data.MagneticStatus)
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 6, "有车情况：地磁正常");
+                    }
+                    else
+                    {
+                        dataGridView1.Invoke(myDeleUpdate, 6, "有车情况：地磁异常");
+                        result = false;
+                    } 
+                
+
+                SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出地磁测试
                 Thread.Sleep(500);
-                if (Data.ReturnStr == ret1)
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 5, "地磁测试中...");
-                }
-                Thread.Sleep(1000);
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
+                SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出地磁测试
                 Thread.Sleep(500);
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
-                Thread.Sleep(500);
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
 
-                if (Data.ReturnStr.Substring(18, 2) == "00")
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 5, "无车情况：地磁正常");
-                }
-                else
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 5, "无车情况：地磁异常");
-                    result = false;
-                }
-
-                dataGridView1.Invoke(myDeleUpdate, 6, "地磁测试中...");
-
-                User_Magnetic_Confirm frm3 = new User_Magnetic_Confirm();
-                frm3.ShowDialog();
-
-                if (Data.MagneticStatus)
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 6, "有车情况：地磁正常");
-
-                }
-                else
-                {
-                    dataGridView1.Invoke(myDeleUpdate, 6, "有车情况：地磁异常");
-                    result = false;
-                }
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出超测试
-                Thread.Sleep(500);
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出超声测试
-                Thread.Sleep(500);
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010601050000");//退出超声测试
                 #endregion
 
                 if (result)
                 {
                     string timestr = string.Format("{0}-{1:D2}-{2:D2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
                     PrintMachine.PrintUniqueCode(timestr, Data.UniqueCode);
-                    int temp = 0;
-                    int.TryParse(Data.UniqueCode, out temp);
-                    temp = temp + 1;
-                    Data.UniqueCode = Convert.ToString(temp, 10).PadLeft(8, '0');
-
-                    this.textBox_UniqueCode.Invoke(myDeleUpdateTextBox, this.textBox_UniqueCode, Data.UniqueCode);
-
-                    SetConfigValue("UniqueCode", Data.UniqueCode);
 
                     string time = string.Format("{0}-{1:D2}-{2:D2} {3:D2}：{4:D2}：{5:D2}", DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);
                     string detail = "";
@@ -539,6 +575,16 @@ namespace WWT_FacTest
                     dataGridView2.Invoke(myDeleUpdate2, Data.UniqueCode, time, "测试成功", detail);
 
                     Data.sql.InsertValues("table_All", new string[] { Data.UniqueCode, time, "测试成功", detail });
+
+                    int temp = 0;
+                    int.TryParse(Data.UniqueCode, out temp);
+                    temp = temp + 1;
+                    Data.UniqueCode = Convert.ToString(temp, 10).PadLeft(8, '0');
+
+                    this.textBox_UniqueCode.Invoke(myDeleUpdateTextBox, this.textBox_UniqueCode, Data.UniqueCode);
+
+                    SetConfigValue("UniqueCode", Data.UniqueCode);
+
                 }
                 else
                 {
@@ -554,146 +600,152 @@ namespace WWT_FacTest
                     Data.sql.InsertValues("table_All", new string[] { Data.UniqueCode, time, "测试失败", detail });
                     Data.sql.InsertValues("table_Error", new string[] { Data.UniqueCode, time, "测试失败", detail });
                 }
-
             }
+                catch (Exception ex)
+            {
+                MessageBox.Show("串口错误，请重新配置串口！！");
+                MyLog.Error(ex.Message);
+            }
+
+        }
             else
             {
                 MyLog.Error("串口未打开，测试失败，请重新测试！");
             }
-            Trace.WriteLine("退出Fun_Compare");
+    Trace.WriteLine("退出Fun_Compare");
         }
 
 
-        private void button10_Click(object sender, EventArgs e)
+private void button10_Click(object sender, EventArgs e)
+{
+    PrintMachine.PrintUniqueCode("2000年1月1日", "99999999");
+}
+
+private void 串口配置ToolStripMenuItem_Click(object sender, EventArgs e)
+{
+
+}
+
+private void 手动控制ToolStripMenuItem_Click(object sender, EventArgs e)
+{
+    if (this.splitContainer1.Panel1Collapsed)
+    {
+        this.splitContainer1.Panel1Collapsed = false;
+    }
+    else
+    {
+        this.splitContainer1.Panel1Collapsed = true;
+    }
+}
+
+private void btn_SerialConfig_Click(object sender, EventArgs e)
+{
+    if (this.splitContainer3.Panel1Collapsed)
+    {
+        this.splitContainer3.Panel1Collapsed = false;
+    }
+    else
+    {
+        this.splitContainer3.Panel1Collapsed = true;
+    }
+}
+
+private void button12_Click(object sender, EventArgs e)
+{
+    string fileName = "";
+    string saveFileName = "";
+    SaveFileDialog saveDialog = new SaveFileDialog();
+    saveDialog.DefaultExt = "xlsx";
+    saveDialog.Filter = "Excel文件|*.xlsx";
+    saveDialog.FileName = fileName;
+    saveDialog.ShowDialog();
+    saveFileName = saveDialog.FileName;
+    if (saveFileName.IndexOf(":") < 0) return; //被点了取消
+    Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
+    if (xlApp == null)
+    {
+        MessageBox.Show("无法创建Excel对象，您的电脑可能未安装Excel");
+        return;
+    }
+    Microsoft.Office.Interop.Excel.Workbooks workbooks = xlApp.Workbooks;
+    Microsoft.Office.Interop.Excel.Workbook workbook =
+                workbooks.Add(Microsoft.Office.Interop.Excel.XlWBATemplate.xlWBATWorksheet);
+    Microsoft.Office.Interop.Excel.Worksheet worksheet =
+                (Microsoft.Office.Interop.Excel.Worksheet)workbook.Worksheets[1];//取得sheet1 
+                                                                                 //写入标题             
+    for (int i = 0; i < dataGridView2.ColumnCount; i++)
+    { worksheet.Cells[1, i + 1] = dataGridView2.Columns[i].HeaderText; }
+    //写入数值
+    for (int r = 0; r < dataGridView2.Rows.Count; r++)
+    {
+        for (int i = 0; i < dataGridView2.ColumnCount; i++)
         {
-            PrintMachine.PrintUniqueCode("2000年1月1日", "99999999");
+            worksheet.Cells[r + 2, i + 1] = dataGridView2.Rows[r].Cells[i].Value;
         }
-
-        private void 串口配置ToolStripMenuItem_Click(object sender, EventArgs e)
+        System.Windows.Forms.Application.DoEvents();
+    }
+    worksheet.Columns.EntireColumn.AutoFit();//列宽自适应
+    MessageBox.Show(fileName + "资料保存成功", "提示", MessageBoxButtons.OK);
+    if (saveFileName != "")
+    {
+        try
         {
-
+            workbook.Saved = true;
+            workbook.SaveCopyAs(saveFileName);  //fileSaved = true;                 
         }
-
-        private void 手动控制ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (this.splitContainer1.Panel1Collapsed)
-            {
-                this.splitContainer1.Panel1Collapsed = false;
-            }
-            else
-            {
-                this.splitContainer1.Panel1Collapsed = true;
-            }
+        catch (Exception ex)
+        {//fileSaved = false;                      
+            MessageBox.Show("导出文件时出错,文件可能正被打开！\n" + ex.Message);
         }
+    }
+    xlApp.Quit();
+    GC.Collect();//强行销毁           
+}
 
-        private void btn_SerialConfig_Click(object sender, EventArgs e)
-        {
-            if (this.splitContainer3.Panel1Collapsed)
-            {
-                this.splitContainer3.Panel1Collapsed = false;
-            }
-            else
-            {
-                this.splitContainer3.Panel1Collapsed = true;
-            }
-        }
+private void button13_Click(object sender, EventArgs e)
+{
+    //插入两条数据
+    for (int i = 1000000; i < 1000000 + 100; i++)
+    {
+        int snid = i;
+        string str_snid = i.ToString().PadLeft(8, '0');
+        Data.sql.InsertValues("table_All", new string[] { str_snid, "20180321", "测试成功", "测试成功" });
+    }
+    Trace.WriteLine("100 over!");
+    //更新数据，将Name="张三"的记录中的Name改为"Zhang3"
+    //   sql.UpdateValues("table1", new string[] { "Name" }, new string[] { "ZhangSan" }, "Name", "Zhang3");
 
-        private void button12_Click(object sender, EventArgs e)
-        {
-            string fileName = "";
-            string saveFileName = "";
-            SaveFileDialog saveDialog = new SaveFileDialog();
-            saveDialog.DefaultExt = "xlsx";
-            saveDialog.Filter = "Excel文件|*.xlsx";
-            saveDialog.FileName = fileName;
-            saveDialog.ShowDialog();
-            saveFileName = saveDialog.FileName;
-            if (saveFileName.IndexOf(":") < 0) return; //被点了取消
-            Microsoft.Office.Interop.Excel.Application xlApp = new Microsoft.Office.Interop.Excel.Application();
-            if (xlApp == null)
-            {
-                MessageBox.Show("无法创建Excel对象，您的电脑可能未安装Excel");
-                return;
-            }
-            Microsoft.Office.Interop.Excel.Workbooks workbooks = xlApp.Workbooks;
-            Microsoft.Office.Interop.Excel.Workbook workbook =
-                        workbooks.Add(Microsoft.Office.Interop.Excel.XlWBATemplate.xlWBATWorksheet);
-            Microsoft.Office.Interop.Excel.Worksheet worksheet =
-                        (Microsoft.Office.Interop.Excel.Worksheet)workbook.Worksheets[1];//取得sheet1 
-                                                                                         //写入标题             
-            for (int i = 0; i < dataGridView2.ColumnCount; i++)
-            { worksheet.Cells[1, i + 1] = dataGridView2.Columns[i].HeaderText; }
-            //写入数值
-            for (int r = 0; r < dataGridView2.Rows.Count; r++)
-            {
-                for (int i = 0; i < dataGridView2.ColumnCount; i++)
-                {
-                    worksheet.Cells[r + 2, i + 1] = dataGridView2.Rows[r].Cells[i].Value;
-                }
-                System.Windows.Forms.Application.DoEvents();
-            }
-            worksheet.Columns.EntireColumn.AutoFit();//列宽自适应
-            MessageBox.Show(fileName + "资料保存成功", "提示", MessageBoxButtons.OK);
-            if (saveFileName != "")
-            {
-                try
-                {
-                    workbook.Saved = true;
-                    workbook.SaveCopyAs(saveFileName);  //fileSaved = true;                 
-                }
-                catch (Exception ex)
-                {//fileSaved = false;                      
-                    MessageBox.Show("导出文件时出错,文件可能正被打开！\n" + ex.Message);
-                }
-            }
-            xlApp.Quit();
-            GC.Collect();//强行销毁           
-        }
+    //删除Name="张三"且Age=26的记录,DeleteValuesOR方法类似
+    // sql.DeleteValuesAND("table1", new string[] { "Name", "Age" }, new string[] { "张三", "22" }, new string[] { "=", "=" });
+}
 
-        private void button13_Click(object sender, EventArgs e)
-        {
-            //插入两条数据
-            for (int i = 1000000; i < 1000000+100; i++)
-            {
-                int snid = i;
-                string str_snid = i.ToString().PadLeft(8, '0');
-                Data.sql.InsertValues("table_All", new string[] { str_snid, "20180321", "测试成功", "测试成功" });               
-            }
-            Trace.WriteLine("100 over!");
-            //更新数据，将Name="张三"的记录中的Name改为"Zhang3"
-         //   sql.UpdateValues("table1", new string[] { "Name" }, new string[] { "ZhangSan" }, "Name", "Zhang3");
+private void button14_Click(object sender, EventArgs e)
+{
+    SQLiteDataReader reader = Data.sql.ReadFullTable("table_All");
+    while (reader.Read())
+    {
+        //读取ID
+        Trace.WriteLine("" + reader.GetString(reader.GetOrdinal("锁唯一ID")));
+        //读取Name
+        Trace.WriteLine("" + reader.GetString(reader.GetOrdinal("时间")));
+        //读取Age
+        Trace.WriteLine("" + reader.GetString(reader.GetOrdinal("结果")));
+        //读取Email
+        Trace.WriteLine(reader.GetString(reader.GetOrdinal("详细信息")));
+    }
+}
 
-            //删除Name="张三"且Age=26的记录,DeleteValuesOR方法类似
-           // sql.DeleteValuesAND("table1", new string[] { "Name", "Age" }, new string[] { "张三", "22" }, new string[] { "=", "=" });
-        }
-
-        private void button14_Click(object sender, EventArgs e)
-        {
-            SQLiteDataReader reader = Data.sql.ReadFullTable("table_All");
-            while (reader.Read())
-            {
-                //读取ID
-                Trace.WriteLine("" + reader.GetString(reader.GetOrdinal("锁唯一ID")));
-                //读取Name
-                Trace.WriteLine("" + reader.GetString(reader.GetOrdinal("时间")));
-                //读取Age
-                Trace.WriteLine("" + reader.GetString(reader.GetOrdinal("结果")));
-                //读取Email
-                Trace.WriteLine(reader.GetString(reader.GetOrdinal("详细信息")));
-            }
-        }
-
-        private void 查询ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if(myQueryInfo!=null)
-            {
-                myQueryInfo.Activate();
-            }
-            else
-            {
-                myQueryInfo = new QueryInfo();
-            }
-            myQueryInfo.Show();
-        }
+private void 查询ToolStripMenuItem_Click(object sender, EventArgs e)
+{
+    if (myQueryInfo != null)
+    {
+        myQueryInfo.Activate();
+    }
+    else
+    {
+        myQueryInfo = new QueryInfo();
+    }
+    myQueryInfo.Show();
+}
     }
 }

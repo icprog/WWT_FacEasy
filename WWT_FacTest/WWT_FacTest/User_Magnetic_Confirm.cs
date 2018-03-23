@@ -40,14 +40,17 @@ namespace WWT_FacTest
             else
             {
                 waitSecond--;
-                label1.Text = "请将测试车移到车位锁上方，测试到地磁抖动会自动退出---倒计时：" + waitSecond + "秒";
+                label1.Text = "左右移动的挡板，测试到地磁抖动会自动退出此窗口---倒计时：" + waitSecond + "秒";
 
                 SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
                 Thread.Sleep(100);
-                if (Data.ReturnStr.Substring(18, 2) == "55")
+                if (Data.ReturnStr.Length > 26)
                 {
-                    Data.MagneticStatus = true;
-                    waitSecond = 0;
+                    if (Data.ReturnStr.Substring(18, 2) == "55")
+                    {
+                        Data.MagneticStatus = true;
+                        waitSecond = 0;
+                    }
                 }
             }
         }

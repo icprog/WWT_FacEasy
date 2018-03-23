@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -40,35 +41,43 @@ namespace WWT_FacTest
                 SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
                 Thread.Sleep(100);
 
-                byte Ultrasonic_return_b9 = Convert.ToByte(Data.ReturnStr.Substring(18, 2), 16);
-                bool Ultrasonic_result_S1 = false;
-                bool Ultrasonic_result_S2 = false;
+                if (Data.ReturnStr.Length > 26)
+                {
+                    byte Ultrasonic_return_b9 = Convert.ToByte(Data.ReturnStr.Substring(18, 2), 16);
+                    Trace.WriteLine(Ultrasonic_return_b9);
+                    bool Ultrasonic_result_S1 = false;
+                    bool Ultrasonic_result_S2 = false;
 
-                if ((Ultrasonic_return_b9 & 0xf0) != 0)
-                {
-                    Ultrasonic_result_S1 = true;
-                }
-                if ((Ultrasonic_return_b9 & 0x0f) != 0)
-                {
-                    Ultrasonic_result_S2 = true;
-                }
+                    if ((Ultrasonic_return_b9 & 0xf0) != 0)
+                    {
+                        Ultrasonic_result_S1 = true;
+                    }
+                    if ((Ultrasonic_return_b9 & 0x0f) != 0)
+                    {
+                        Ultrasonic_result_S2 = true;
+                    }
 
-                if (Ultrasonic_result_S1 & Ultrasonic_result_S2)
-                {
-                    Data.UltrasonicStatus = 0;
-                    waitSecond = 0;
-                }
-                else if ((!Ultrasonic_result_S1) & Ultrasonic_result_S2)
-                {
-                    Data.UltrasonicStatus = 1;
-                }
-                else if (Ultrasonic_result_S1 & (!Ultrasonic_result_S2))
-                {
-                    Data.UltrasonicStatus = 2;
+                    if (Ultrasonic_result_S1 & Ultrasonic_result_S2)
+                    {
+                        Data.UltrasonicStatus = 0;
+                        waitSecond = 0;
+                    }
+                    else if ((!Ultrasonic_result_S1) & Ultrasonic_result_S2)
+                    {
+                        Data.UltrasonicStatus = 1;
+                    }
+                    else if (Ultrasonic_result_S1 & (!Ultrasonic_result_S2))
+                    {
+                        Data.UltrasonicStatus = 2;
+                    }
+                    else
+                    {
+                        Data.UltrasonicStatus = 3;
+                    }
                 }
                 else
                 {
-                    Data.UltrasonicStatus = 3;
+                    Data.UltrasonicStatus = 4;
                 }
 
             }

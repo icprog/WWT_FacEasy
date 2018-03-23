@@ -82,7 +82,7 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Name = "User_Ultrasonic_Confirm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "User_Ultrasonic_Confirm";
             this.Load += new System.EventHandler(this.User_Ultrasonic_Confirm_Load);
             this.ResumeLayout(false);

@@ -27,7 +27,7 @@ namespace WWT_FacTest
             else
             {
                 waitSecond--;
-                label1.Text = "蜂鸣器测试结果，若不选择将在10s后默认工作正常！---倒计时：" + waitSecond + "秒";
+                label1.Text = "蜂鸣器测试结果，若不选择将在3s后默认工作正常！---倒计时：" + waitSecond + "秒";
                 button1.Text = "蜂鸣器正常" + "(" + waitSecond + ")";
             }
         }

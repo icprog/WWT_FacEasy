@@ -69,9 +69,9 @@
             this.label1.Font = new System.Drawing.Font("宋体", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.label1.Location = new System.Drawing.Point(29, 32);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(629, 20);
+            this.label1.Size = new System.Drawing.Size(609, 20);
             this.label1.TabIndex = 4;
-            this.label1.Text = "蜂鸣器测试结果，若不选择将在10s后默认工作正常！---倒计时：10秒";
+            this.label1.Text = "蜂鸣器测试结果，若不选择将在3s后默认工作正常！---倒计时：3秒";
             // 
             // UserConfirm
             // 

@@ -31,4 +31,3 @@ D:\CSharpProjects\WWT_FacEasy\WWT_FacTest\WWT_FacTest\obj\Debug\WWT_FacTest.cspr
 D:\CSharpProjects\WWT_FacEasy\WWT_FacTest\WWT_FacTest\obj\Debug\WWT_FacTest.exe
 D:\CSharpProjects\WWT_FacEasy\WWT_FacTest\WWT_FacTest\obj\Debug\WWT_FacTest.pdb
 D:\CSharpProjects\WWT_FacEasy\WWT_FacTest\WWT_FacTest\obj\Debug\WWT_FacTest.QueryInfo.resources
-D:\CSharpProjects\WWT_FacEasy\WWT_FacTest\WWT_FacTest\obj\Debug\WWT_FacTest.csprojResolveAssemblyReference.cache
