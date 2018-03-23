@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label40 = new System.Windows.Forms.Label();
@@ -55,7 +55,6 @@
             this.ID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.测试项目 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.测试结果 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btn_start = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.textBox_UniqueCode = new System.Windows.Forms.TextBox();
@@ -79,6 +78,7 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.button12 = new System.Windows.Forms.Button();
+            this.btn_start = new System.Windows.Forms.Button();
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -408,19 +408,6 @@
             this.测试结果.Name = "测试结果";
             this.测试结果.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // btn_start
-            // 
-            this.btn_start.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.btn_start.Font = new System.Drawing.Font("宋体", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.btn_start.Location = new System.Drawing.Point(22, 27);
-            this.btn_start.Margin = new System.Windows.Forms.Padding(2);
-            this.btn_start.Name = "btn_start";
-            this.btn_start.Size = new System.Drawing.Size(206, 76);
-            this.btn_start.TabIndex = 86;
-            this.btn_start.Text = "开始测试";
-            this.btn_start.UseVisualStyleBackColor = false;
-            this.btn_start.Click += new System.EventHandler(this.btn_start_Click);
-            // 
             // button10
             // 
             this.button10.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -583,8 +570,8 @@
             // 
             // splitContainer4.Panel1
             // 
-            this.splitContainer4.Panel1.Controls.Add(this.button12);
             this.splitContainer4.Panel1.Controls.Add(this.btn_start);
+            this.splitContainer4.Panel1.Controls.Add(this.button12);
             this.splitContainer4.Panel1.Controls.Add(this.dataGridView1);
             // 
             // splitContainer4.Panel2
@@ -614,9 +601,9 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "SNID";
-            dataGridViewCellStyle15.Format = "000000";
-            dataGridViewCellStyle15.NullValue = "000000";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle1.Format = "000000";
+            dataGridViewCellStyle1.NullValue = "000000";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridViewTextBoxColumn2.HeaderText = "锁唯一ID";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
@@ -700,15 +687,25 @@
             // 
             // button12
             // 
-            this.button12.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button12.Font = new System.Drawing.Font("宋体", 13F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.button12.Location = new System.Drawing.Point(22, 128);
+            this.button12.Font = new System.Drawing.Font("宋体", 13F);
+            this.button12.Location = new System.Drawing.Point(22, 144);
             this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(206, 80);
-            this.button12.TabIndex = 87;
+            this.button12.Size = new System.Drawing.Size(206, 81);
+            this.button12.TabIndex = 89;
             this.button12.Text = "查询和导出";
-            this.button12.UseVisualStyleBackColor = false;
+            this.button12.UseVisualStyleBackColor = true;
             this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // btn_start
+            // 
+            this.btn_start.Font = new System.Drawing.Font("宋体", 13F);
+            this.btn_start.Location = new System.Drawing.Point(22, 40);
+            this.btn_start.Name = "btn_start";
+            this.btn_start.Size = new System.Drawing.Size(206, 81);
+            this.btn_start.TabIndex = 90;
+            this.btn_start.Text = "开始测试";
+            this.btn_start.UseVisualStyleBackColor = true;
+            this.btn_start.Click += new System.EventHandler(this.btn_start_Click);
             // 
             // MainForm
             // 
@@ -779,7 +776,6 @@
         private System.Windows.Forms.Button button8;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button btn_start;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button11;
         private System.Windows.Forms.TextBox textBox_UniqueCode;
@@ -806,6 +802,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn 测试结果;
         private System.Windows.Forms.ToolStripMenuItem 查询ToolStripMenuItem;
         private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.Button btn_start;
     }
 }
 
