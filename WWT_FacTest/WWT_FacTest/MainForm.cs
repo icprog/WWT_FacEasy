@@ -451,7 +451,38 @@ namespace WWT_FacTest
                     }
                     else
                     {
-                        dataGridView1.Invoke(myDeleUpdate, 3, "无车情况：超声异常");
+                        byte temp_byte = Convert.ToByte(Data.ReturnStr.Substring(18, 2), 16);
+
+                        bool temp_flag1 = false;
+                        bool temp_flag2 = false;
+
+                        if ((temp_byte & 0xf0) != 0)
+                        {
+                            temp_flag1 = true;
+                        }
+                        if ((temp_byte & 0x0f) != 0)
+                        {
+                            temp_flag2 = true;
+                        }
+
+                        if (temp_flag1 & temp_flag2)
+                        {
+                            dataGridView1.Invoke(myDeleUpdate, 3, "无车情况：超声正常");
+
+                        }
+                        else if ((!temp_flag1) & temp_flag2)
+                        {
+                            dataGridView1.Invoke(myDeleUpdate, 3, "无车情况：超声探头1异常");
+                        }
+                        else if (temp_flag1 & (!temp_flag2))
+                        {
+                            dataGridView1.Invoke(myDeleUpdate, 3, "无车情况：超声探头2异常");
+                        }
+                        else
+                        {
+                            dataGridView1.Invoke(myDeleUpdate, 3, "无车情况：超声探头1,2异常");
+                        }
+
                         result = false;
                     }
 
