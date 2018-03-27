@@ -25,6 +25,7 @@ namespace WWT_FacTest
         public delegate void DeleUpdateTextBox(TextBox textbox, string str);
 
         public QueryInfo myQueryInfo = new QueryInfo();
+        public LifeTestForm myLifeTest = new LifeTestForm();
 
         private void UpdateGridView(int row, string result)
         {
@@ -718,6 +719,19 @@ namespace WWT_FacTest
                 myQueryInfo = new QueryInfo();
             }
             myQueryInfo.ShowDialog();
+        }
+
+        private void 寿命测试ToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (myLifeTest != null)
+            {
+                myLifeTest.Activate();
+            }
+            else
+            {
+                myLifeTest = new LifeTestForm();
+            }
+            myLifeTest.ShowDialog();
         }
     }
 }

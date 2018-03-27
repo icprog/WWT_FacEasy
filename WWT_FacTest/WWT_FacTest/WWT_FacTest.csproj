@@ -97,6 +97,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Data.cs" />
+    <Compile Include="LifeTestForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="LifeTestForm.Designer.cs">
+      <DependentUpon>LifeTestForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="LogDLL.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -135,6 +141,9 @@
     <Compile Include="User_Ultrasonic_Confirm.Designer.cs">
       <DependentUpon>User_Ultrasonic_Confirm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="LifeTestForm.resx">
+      <DependentUpon>LifeTestForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>

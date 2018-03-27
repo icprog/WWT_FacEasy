@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label40 = new System.Windows.Forms.Label();
@@ -64,10 +64,13 @@
             this.串口配置ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.手动控制ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.寿命测试ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.btn_SerialConfig = new System.Windows.Forms.Button();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
+            this.btn_start = new System.Windows.Forms.Button();
+            this.button12 = new System.Windows.Forms.Button();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -77,8 +80,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.button12 = new System.Windows.Forms.Button();
-            this.btn_start = new System.Windows.Forms.Button();
+            this.寿命测试ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.menuStrip1.SuspendLayout();
@@ -457,7 +459,9 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.配置ToolStripMenuItem,
             this.手动控制ToolStripMenuItem,
-            this.查询ToolStripMenuItem});
+            this.查询ToolStripMenuItem,
+            this.寿命测试ToolStripMenuItem,
+            this.寿命测试ToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(931, 25);
@@ -491,6 +495,11 @@
             this.查询ToolStripMenuItem.Size = new System.Drawing.Size(80, 21);
             this.查询ToolStripMenuItem.Text = "查询与导出";
             this.查询ToolStripMenuItem.Click += new System.EventHandler(this.查询ToolStripMenuItem_Click);
+            // 
+            // 寿命测试ToolStripMenuItem
+            // 
+            this.寿命测试ToolStripMenuItem.Name = "寿命测试ToolStripMenuItem";
+            this.寿命测试ToolStripMenuItem.Size = new System.Drawing.Size(12, 21);
             // 
             // splitContainer1
             // 
@@ -581,6 +590,28 @@
             this.splitContainer4.SplitterDistance = 257;
             this.splitContainer4.TabIndex = 88;
             // 
+            // btn_start
+            // 
+            this.btn_start.Font = new System.Drawing.Font("宋体", 13F);
+            this.btn_start.Location = new System.Drawing.Point(22, 40);
+            this.btn_start.Name = "btn_start";
+            this.btn_start.Size = new System.Drawing.Size(206, 81);
+            this.btn_start.TabIndex = 90;
+            this.btn_start.Text = "开始测试";
+            this.btn_start.UseVisualStyleBackColor = true;
+            this.btn_start.Click += new System.EventHandler(this.btn_start_Click);
+            // 
+            // button12
+            // 
+            this.button12.Font = new System.Drawing.Font("宋体", 13F);
+            this.button12.Location = new System.Drawing.Point(22, 144);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(206, 81);
+            this.button12.TabIndex = 89;
+            this.button12.Text = "查询和导出";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
             // dataGridView2
             // 
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -601,9 +632,9 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "SNID";
-            dataGridViewCellStyle1.Format = "000000";
-            dataGridViewCellStyle1.NullValue = "000000";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "000000";
+            dataGridViewCellStyle2.NullValue = "000000";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn2.HeaderText = "锁唯一ID";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
@@ -685,27 +716,12 @@
             this.splitContainer3.SplitterDistance = 135;
             this.splitContainer3.TabIndex = 95;
             // 
-            // button12
+            // 寿命测试ToolStripMenuItem1
             // 
-            this.button12.Font = new System.Drawing.Font("宋体", 13F);
-            this.button12.Location = new System.Drawing.Point(22, 144);
-            this.button12.Name = "button12";
-            this.button12.Size = new System.Drawing.Size(206, 81);
-            this.button12.TabIndex = 89;
-            this.button12.Text = "查询和导出";
-            this.button12.UseVisualStyleBackColor = true;
-            this.button12.Click += new System.EventHandler(this.button12_Click);
-            // 
-            // btn_start
-            // 
-            this.btn_start.Font = new System.Drawing.Font("宋体", 13F);
-            this.btn_start.Location = new System.Drawing.Point(22, 40);
-            this.btn_start.Name = "btn_start";
-            this.btn_start.Size = new System.Drawing.Size(206, 81);
-            this.btn_start.TabIndex = 90;
-            this.btn_start.Text = "开始测试";
-            this.btn_start.UseVisualStyleBackColor = true;
-            this.btn_start.Click += new System.EventHandler(this.btn_start_Click);
+            this.寿命测试ToolStripMenuItem1.Name = "寿命测试ToolStripMenuItem1";
+            this.寿命测试ToolStripMenuItem1.Size = new System.Drawing.Size(68, 21);
+            this.寿命测试ToolStripMenuItem1.Text = "寿命测试";
+            this.寿命测试ToolStripMenuItem1.Click += new System.EventHandler(this.寿命测试ToolStripMenuItem1_Click);
             // 
             // MainForm
             // 
@@ -803,6 +819,8 @@
         private System.Windows.Forms.ToolStripMenuItem 查询ToolStripMenuItem;
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button btn_start;
+        private System.Windows.Forms.ToolStripMenuItem 寿命测试ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 寿命测试ToolStripMenuItem1;
     }
 }
 
