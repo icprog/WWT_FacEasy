@@ -39,11 +39,12 @@ namespace WWT_FacTest
 
         private void LifeTestThread(int nums)
         {
+            int runNum = 0;
             while(threadOn)
             {
                 if (SerialFun.ComPortSend.IsOpen)
                 {
-                    for (int i = 0; i < nums; i++)
+                    if (runNum++ < nums)
                     {
                         String CmdStr1 = "01051002FF00";//升锁
                         SerialFun.SendToPort(SerialFun.ComPortSend, CmdStr1);
@@ -58,6 +59,13 @@ namespace WWT_FacTest
                         AlreadyRunNums += 1;
                         textBox2.BeginInvoke(new Action(() => { textBox2.Text = AlreadyRunNums.ToString(); ; }));
                     }
+                    else
+                    {
+                        MessageBox.Show("测试完成！！");
+                        this.button1.BeginInvoke(new Action(() => { this.button1.Text = "开始寿命测试"; }));
+                        break;
+                    }
+
                 }
                 else
                 {
