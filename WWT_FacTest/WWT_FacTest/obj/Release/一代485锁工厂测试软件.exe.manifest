@@ -163,14 +163,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="一代485锁工厂测试软件.exe" size="187376">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="一代485锁工厂测试软件.exe" size="184304">
       <assemblyIdentity name="一代485锁工厂测试软件" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>Y19jzTgfV2hJPvLNPuWlGSSO5fv2oqyt+q/TfaIMP54=</dsig:DigestValue>
+        <dsig:DigestValue>BlcpHXSSnW1R/qeUdoM2bsZCt/f+HTEfAu8917Bgs/c=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
