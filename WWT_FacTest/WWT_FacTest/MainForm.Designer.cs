@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.panel10 = new System.Windows.Forms.Panel();
             this.label40 = new System.Windows.Forms.Label();
@@ -391,7 +391,7 @@
             // 
             this.button10.Dock = System.Windows.Forms.DockStyle.Fill;
             this.button10.Location = new System.Drawing.Point(935, 37);
-            this.button10.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button10.Margin = new System.Windows.Forms.Padding(4);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(131, 26);
             this.button10.TabIndex = 87;
@@ -414,8 +414,9 @@
             // 
             this.textBox_UniqueCode.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.textBox_UniqueCode.Location = new System.Drawing.Point(802, 37);
-            this.textBox_UniqueCode.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox_UniqueCode.Margin = new System.Windows.Forms.Padding(4);
             this.textBox_UniqueCode.Name = "textBox_UniqueCode";
+            this.textBox_UniqueCode.ReadOnly = true;
             this.textBox_UniqueCode.Size = new System.Drawing.Size(125, 28);
             this.textBox_UniqueCode.TabIndex = 88;
             this.textBox_UniqueCode.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -494,7 +495,7 @@
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer1.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -540,7 +541,7 @@
             this.tableLayoutPanel1.Controls.Add(this.btn_SerialConfig, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -564,7 +565,7 @@
             this.splitContainer4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer4.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer4.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer4.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer4.Name = "splitContainer4";
             this.splitContainer4.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -586,7 +587,7 @@
             // 
             this.btn_start.Font = new System.Drawing.Font("宋体", 13F);
             this.btn_start.Location = new System.Drawing.Point(33, 60);
-            this.btn_start.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_start.Margin = new System.Windows.Forms.Padding(4);
             this.btn_start.Name = "btn_start";
             this.btn_start.Size = new System.Drawing.Size(309, 122);
             this.btn_start.TabIndex = 90;
@@ -598,7 +599,7 @@
             // 
             this.button12.Font = new System.Drawing.Font("宋体", 13F);
             this.button12.Location = new System.Drawing.Point(33, 216);
-            this.button12.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button12.Margin = new System.Windows.Forms.Padding(4);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(309, 122);
             this.button12.TabIndex = 89;
@@ -625,9 +626,9 @@
             // dataGridViewTextBoxColumn2
             // 
             this.dataGridViewTextBoxColumn2.DataPropertyName = "SNID";
-            dataGridViewCellStyle1.Format = "000000";
-            dataGridViewCellStyle1.NullValue = "000000";
-            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Format = "000000";
+            dataGridViewCellStyle2.NullValue = "000000";
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle2;
             this.dataGridViewTextBoxColumn2.HeaderText = "锁唯一ID";
             this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             // 
@@ -657,9 +658,9 @@
             this.groupBox1.Controls.Add(this.richTextBox1);
             this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox1.Location = new System.Drawing.Point(0, 0);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(320, 790);
             this.groupBox1.TabIndex = 94;
             this.groupBox1.TabStop = false;
@@ -670,7 +671,7 @@
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel1.Location = new System.Drawing.Point(0, 0);
-            this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(4);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1070, 790);
             this.panel1.TabIndex = 92;
@@ -679,7 +680,7 @@
             // 
             this.splitContainer2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer2.Location = new System.Drawing.Point(0, 34);
-            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer2.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer2.Name = "splitContainer2";
             // 
             // splitContainer2.Panel1
@@ -699,7 +700,7 @@
             this.splitContainer3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer3.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
             this.splitContainer3.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.splitContainer3.Margin = new System.Windows.Forms.Padding(4);
             this.splitContainer3.Name = "splitContainer3";
             this.splitContainer3.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
