@@ -6,3 +6,14 @@ WWT_FacTest/.vs/WWT_FacTest/v15/.suoWWT_FacTest/WWT_FacTest/obj/Debug/WWT_FacTes
 *.ide
 WWT_FacTest/.vs/WWT_FacTest/v15/.suo
 WWT_FacTest/.vs/WWT_FacTest/v15/.suo
+
+
+
+WWT_FacTest/.vs/
+*.exe
+WWT_FacTest/WWT_FacTest/obj/
+WWT_FacTest/WWT_FacTest/bin/
+WWT_FacTest/WWT_FacTest/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+WWT_FacTest/WWT_FacTest/obj/Debug/WWT_FacTest.csproj.FileListAbsolute.txt
+WWT_FacTest/.vs/WWT_FacTest/v15/
+*.ide
