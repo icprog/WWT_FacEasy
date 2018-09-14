@@ -70,3 +70,5 @@ D:\CSharpproject\WWT_FacEasy\WWT_FacTest\WWT_FacTest\obj\Debug\一代485锁工�
 D:\CSharpproject\WWT_FacEasy\WWT_FacTest\WWT_FacTest\obj\Debug\WWT_FacTest.csproj.CopyComplete
 D:\CSharpproject\WWT_FacEasy\WWT_FacTest\WWT_FacTest\obj\Debug\一代485锁工厂测试软件.exe
 D:\CSharpproject\WWT_FacEasy\WWT_FacTest\WWT_FacTest\obj\Debug\一代485锁工厂测试软件.pdb
+D:\CSharpproject\WWT_FacEasy\WWT_FacTest\WWT_FacTest\bin\Debug\一代485锁工厂测试软件.exe.CodeAnalysisLog.xml
+D:\CSharpproject\WWT_FacEasy\WWT_FacTest\WWT_FacTest\bin\Debug\一代485锁工厂测试软件.exe.lastcodeanalysissucceeded
