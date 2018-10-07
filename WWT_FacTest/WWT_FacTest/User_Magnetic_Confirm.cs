@@ -44,9 +44,9 @@ namespace WWT_FacTest
 
                 SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
                 Thread.Sleep(100);
-                if (Data.ReturnStr.Length > 26)
+                if (Data.ReturnStr.Length > 32)
                 {
-                    if (Data.ReturnStr.Substring(18, 2) == "55")
+                    if (Data.ReturnStr.Substring(30, 2) == "55")
                     {
                         Data.MagneticStatus = true;
                         waitSecond = 0;
