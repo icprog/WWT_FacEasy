@@ -17,7 +17,7 @@ namespace WWT_FacTest
             byte[] SendToPort = new byte[temp.Length + 5];
             SendToPort[0] = 0xeb;
             SendToPort[1] = 0x90;
-            SendToPort[2] = 0x08;
+            SendToPort[2] = (byte)(temp.Length+2);
             SendToPort[SendToPort.Length - 2] = CRC[1];
             SendToPort[SendToPort.Length - 1] = CRC[0];
             temp.CopyTo(SendToPort, 3);
