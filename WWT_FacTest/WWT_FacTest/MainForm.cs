@@ -437,7 +437,7 @@ namespace WWT_FacTest
                         Thread.Sleep(200);
                         if (Data.ReturnStr.Length > 32)
                         {
-                            if (Data.ReturnStr.Substring(24, 2) != "00")
+                            if (Data.ReturnStr.Substring(30, 2) != "00")
                             {
                                 Normal_Ultrasonic_Tag = false;
                                 MyLog.Error("无车超声测试时收到异常返回:" + Data.ReturnStr);
@@ -507,7 +507,7 @@ namespace WWT_FacTest
                         Thread.Sleep(200);
                         if (Data.ReturnStr.Length > 32)
                         {
-                            if (Data.ReturnStr.Substring(30, 2) != "00")
+                            if (Data.ReturnStr.Substring(24, 2) != "00")
                             {
                                 Normal_UltraMagnetic_Tag = false;
                                 MyLog.Error("无车地磁测试时收到异常返回:" + Data.ReturnStr);
@@ -621,6 +621,17 @@ namespace WWT_FacTest
                         Data.sql.InsertValues("table_All", new string[] { Data.UniqueCode, time, "测试通过", detail });
                         Data.sql.InsertValues("table_Right", new string[] { Data.UniqueCode, time, "测试通过", detail });
 
+                        #region 写入id
+
+                        SerialFun.SendToPort(SerialFun.ComPortSend, " FFFFFFFF0601058500");//允许写入UUID
+
+                        SerialFun.SendToPort(SerialFun.ComPortSend, " FFFFFFFFFF0CF7" + Data.UniqueCode);//允许写入UUID
+
+                        SerialFun.SendToPort(SerialFun.ComPortSend, " FFFFFFFF0601050000");//允许写入UUID
+
+                        #endregion
+
+
                         int temp = 0;
                         int.TryParse(Data.UniqueCode, out temp);
                         temp = temp + 1;
@@ -629,6 +640,8 @@ namespace WWT_FacTest
                         this.textBox_UniqueCode.Invoke(myDeleUpdateTextBox, this.textBox_UniqueCode, Data.UniqueCode);
 
                         SetConfigValue("UniqueCode", Data.UniqueCode);
+
+
 
                     }
                     else
