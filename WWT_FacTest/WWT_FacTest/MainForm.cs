@@ -662,7 +662,8 @@ namespace WWT_FacTest
                 catch (Exception ex)
                 {
                     MessageBox.Show("串口错误，请重新配置串口！！");
-                    MyLog.Error(ex.Message);
+                    //   MyLog.Error(ex.Message);
+                    MyLog.Error(ex.ToString());
                 }
 
             }

@@ -2,8 +2,7 @@
 *.ide-shm
 WWT_FacTest/.vs/*.*
 *.exe
-WWT_FacTest/WWT_FacTest/obj/*.*
-WWT_FacTest/WWT_FacTest/bin/*.*
+WWT_FacTest/WWT_FacTest/obj/
 *.ide
 WWT_FacTest/.vs/WWT_FacTest/v15/.suo
-*.exe
+WWT_FacTest/WWT_FacTest/bin/
