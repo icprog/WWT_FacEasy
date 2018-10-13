@@ -223,7 +223,8 @@ namespace WWT_FacTest
             {
                 temp += byteRead[i].ToString("x2");
             }
-            Trace.WriteLine("串口收到:" + temp);
+         //   Trace.WriteLine("串口收到:" + temp);
+            MyLog.Info("串口收到:" + temp);
             Data.ReturnStr = temp;
 
         }
@@ -348,6 +349,7 @@ namespace WWT_FacTest
             {
                 try
                 {
+                    MyLog.Info("开始升锁测试");
                     #region 升锁测试
                     ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF051002FF00");//升锁
                     Thread.Sleep(500);
@@ -357,7 +359,7 @@ namespace WWT_FacTest
                     }
                     Thread.Sleep(5000);
 
-                    SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0420020004");//查询
+                    SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0420010004");//查询
                     Thread.Sleep(500);
 
                     if (Data.ReturnStr.Substring(22, 2) == "55")
@@ -370,7 +372,7 @@ namespace WWT_FacTest
                         result = false;
                     }
                     #endregion
-
+                    MyLog.Info("开始降锁测试");
                     #region 降锁测试
                     ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF051003FF00");//降锁
                     Thread.Sleep(500);
@@ -379,7 +381,7 @@ namespace WWT_FacTest
                         dataGridView1.Invoke(myDeleUpdate, 1, "降锁中...");
                     }
                     Thread.Sleep(5000);
-                    SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0420020004");//查询
+                    SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0420010004");//查询
                     Thread.Sleep(500);
                     if (Data.ReturnStr.Substring(22, 2) == "ff")
                     {
@@ -422,6 +424,7 @@ namespace WWT_FacTest
                     //}
                     #endregion
 
+                    MyLog.Info("开始无车情况下 超声测试以及地磁测试");
                     #region 无车情况下 超声测试以及地磁测试
                     ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0601050300");//进入超声测试
                     Thread.Sleep(500);
@@ -433,7 +436,7 @@ namespace WWT_FacTest
                     bool Normal_Ultrasonic_Tag = true;
                     for (int i = 0; i < 10; i++)
                     {
-                        SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0420020004");//查询
+                        SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0420010004");//查询
                         Thread.Sleep(200);
                         if (Data.ReturnStr.Length > 32)
                         {
@@ -503,7 +506,7 @@ namespace WWT_FacTest
                     bool Normal_UltraMagnetic_Tag = true;
                     for (int i = 0; i < 10; i++)
                     {
-                        SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0420020004");//查询
+                        SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0420010004");//查询
                         Thread.Sleep(200);
                         if (Data.ReturnStr.Length > 32)
                         {
@@ -533,6 +536,8 @@ namespace WWT_FacTest
 
                     #endregion
 
+
+                    MyLog.Info("开始有车情况下 超声测试以及地磁测试");
                     #region 有车情况下，超声测试、地磁测试
 
                     ret1 = SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0601050300");//进入有车超声测试
@@ -574,7 +579,7 @@ namespace WWT_FacTest
 
                     SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0601050000");//退出超声测试
                     Thread.Sleep(500);
-                    SerialFun.SendToPort(SerialFun.ComPortSend, "0FFFFFFFF0601050000");//退出超声测试
+                    SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0601050000");//退出超声测试
                     Thread.Sleep(500);
 
 

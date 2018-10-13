@@ -38,7 +38,8 @@ namespace WWT_FacTest
                 button2.Text = "超声异常" + "(" + waitSecond + ")";
 
 
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
+                SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0420010004");//查询
+
                 Thread.Sleep(100);
 
                 if (Data.ReturnStr.Length > 32)

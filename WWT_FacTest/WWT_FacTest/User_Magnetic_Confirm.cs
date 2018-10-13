@@ -42,11 +42,11 @@ namespace WWT_FacTest
                 waitSecond--;
                 label1.Text = "左右移动的挡板，测试到地磁抖动会自动退出此窗口---倒计时：" + waitSecond + "秒";
 
-                SerialFun.SendToPort(SerialFun.ComPortSend, "010420020004");//查询
+                SerialFun.SendToPort(SerialFun.ComPortSend, "FFFFFFFF0420010004");//查询
                 Thread.Sleep(100);
                 if (Data.ReturnStr.Length > 32)
                 {
-                    if (Data.ReturnStr.Substring(24, 2) == "55")
+                    if (Data.ReturnStr.Substring(24, 2) == "ff")
                     {
                         Data.MagneticStatus = true;
                         waitSecond = 0;
