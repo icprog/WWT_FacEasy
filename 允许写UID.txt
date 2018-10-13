@@ -1,0 +1,3 @@
+允许写UID 允许写入UID EB 90 0B FF FF FF FF 06 01 05 85 00 E0 6D 不对外，用于出厂
+写UID 写对应的UID【UID】 EB 90 0D FF FF FF FF FF 0C F7 【88 AA 55 FF 】84 76 不对外，用于出厂
+禁止写UID 写完UID，关闭UID写允许 EB 90 0B FF FF FF FF 06 01 05 00 00 82 FD 不对外，用于出厂
