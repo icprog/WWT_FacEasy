@@ -44,7 +44,7 @@ namespace WWT_FacTest
 
                 if (Data.ReturnStr.Length > 32)
                 {
-                    byte Ultrasonic_return_b9 = Convert.ToByte(Data.ReturnStr.Substring(30, 2), 16);
+                    byte Ultrasonic_return_b9 = Convert.ToByte(Data.ReturnStr.Substring(28, 2), 16);
                     Trace.WriteLine(Ultrasonic_return_b9);
                     bool Ultrasonic_result_S1 = false;
                     bool Ultrasonic_result_S2 = false;

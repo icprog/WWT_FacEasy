@@ -46,7 +46,7 @@ namespace WWT_FacTest
                 Thread.Sleep(100);
                 if (Data.ReturnStr.Length > 32)
                 {
-                    if (Data.ReturnStr.Substring(24, 2) == "ff")
+                    if (Data.ReturnStr.Substring(28, 2) == "55")
                     {
                         Data.MagneticStatus = true;
                         waitSecond = 0;
