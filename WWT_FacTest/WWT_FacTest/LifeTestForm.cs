@@ -45,13 +45,13 @@ namespace WWT_FacTest
                 if (SerialFun.ComPortSend.IsOpen)
                 {
                     if (runNum++ < nums)
-                    {
-                        String CmdStr1 = "01051002FF00";//升锁
+                    {//FFFFFFFF051002FF00
+                        String CmdStr1 = "FFFFFFFF051002FF00";//升锁
                         SerialFun.SendToPort(SerialFun.ComPortSend, CmdStr1);
 
                         Thread.Sleep(5000);
 
-                        String CmdStr2 = "01051003FF00";//降锁
+                        String CmdStr2 = "FFFFFFFF051003FF00";//降锁
                         SerialFun.SendToPort(SerialFun.ComPortSend, CmdStr2);
 
                         Thread.Sleep(5000);

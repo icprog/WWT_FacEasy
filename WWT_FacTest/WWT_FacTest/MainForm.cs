@@ -626,28 +626,6 @@ namespace WWT_FacTest
                         Data.sql.InsertValues("table_All", new string[] { Data.UniqueCode, time, "测试通过", detail });
                         Data.sql.InsertValues("table_Right", new string[] { Data.UniqueCode, time, "测试通过", detail });
 
-                        #region 写入id
-
-                        SerialFun.SendToPort(SerialFun.ComPortSend, " FFFFFFFF0601058500");//允许写入UUID
-
-                        SerialFun.SendToPort(SerialFun.ComPortSend, " FFFFFFFFFF0CF7" + Data.UniqueCode);//允许写入UUID
-
-                        SerialFun.SendToPort(SerialFun.ComPortSend, " FFFFFFFF0601050000");//允许写入UUID
-
-                        #endregion
-
-
-                        int temp = 0;
-                        int.TryParse(Data.UniqueCode, out temp);
-                        temp = temp + 1;
-                        Data.UniqueCode = Convert.ToString(temp, 10).PadLeft(8, '0');
-
-                        this.textBox_UniqueCode.Invoke(myDeleUpdateTextBox, this.textBox_UniqueCode, Data.UniqueCode);
-
-                        SetConfigValue("UniqueCode", Data.UniqueCode);
-
-
-
                     }
                     else
                     {
@@ -682,7 +660,30 @@ namespace WWT_FacTest
 
         private void button10_Click(object sender, EventArgs e)
         {
-            PrintMachine.PrintUniqueCode("2000年1月1日", "99999999");
+            //   PrintMachine.PrintUniqueCode("2000年1月1日", "99999999");
+
+            #region 写入id
+
+            SerialFun.SendToPort(SerialFun.ComPortSend, " FFFFFFFF0601058500");//允许写入UUID
+            Thread.Sleep(1000);
+            SerialFun.SendToPort(SerialFun.ComPortSend, " FFFFFFFFFF0CF7" + Data.UniqueCode);//允许写入UUID
+            Thread.Sleep(1000);
+            SerialFun.SendToPort(SerialFun.ComPortSend, " FFFFFFFF0601050000");//
+
+            #endregion
+
+            int temp = 0;
+            int.TryParse(Data.UniqueCode, out temp);
+            temp = temp + 1;
+            Data.UniqueCode = Convert.ToString(temp, 10).PadLeft(8, '0');
+
+            this.textBox_UniqueCode.Text = Data.UniqueCode;
+
+            //this.textBox_UniqueCode.Invoke(myDeleUpdateTextBox, this.textBox_UniqueCode, Data.UniqueCode);
+
+            SetConfigValue("UniqueCode", Data.UniqueCode);
+
+
         }
 
         private void 串口配置ToolStripMenuItem_Click(object sender, EventArgs e)
