@@ -227,6 +227,14 @@ namespace WWT_FacTest
             MyLog.Info("串口收到:" + temp);
             Data.ReturnStr = temp;
 
+            if(temp.Length==30)
+            {
+                if(temp.Substring(0,18).ToLower()=="eb900cffffffff0304")
+                {
+                    MyLog.Info("UUID is" + temp.Substring(18, 8));
+                }
+            }
+
         }
 
         private void comboBox_SerialPortNum_DropDown(object sender, EventArgs e)
@@ -752,6 +760,12 @@ namespace WWT_FacTest
                 myLifeTest = new LifeTestForm();
             }
             myLifeTest.ShowDialog();
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            String CmdStr = "FFFFFFFF0300070002";//查询UUID
+            SerialFun.SendToPort(SerialFun.ComPortSend, CmdStr);
         }
     }
 }
